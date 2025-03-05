@@ -1,10 +1,10 @@
-from typing import Optional
+from typing import Optional, Union
 
 
 class User:
     """Telegram foydalanuvchisi haqidagi ma'lumotlarni saqlovchi klass."""
     
-    def __init__(self, id: int, first_name: str):
+    def __init__(self, id: Union[int, str], first_name: str):
         self.id = id
         self.first_name = first_name
 
@@ -22,7 +22,7 @@ class Message:
 
     def __init__(
         self, 
-        message_id: int, 
+        message_id: Union[int, str], 
         from_user: User, 
         text: Optional[str] = None, 
         dice: Optional[Dice] = None
@@ -44,6 +44,6 @@ class Message:
 class Update:
     """Telegram yangilanish modeli (update)."""
 
-    def __init__(self, update_id: int, message: Optional[Message] = None):
+    def __init__(self, update_id: Union[int, str], message: Optional[Message] = None):
         self.update_id = update_id
         self.message = message
