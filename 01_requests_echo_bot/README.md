@@ -1,61 +1,63 @@
-# 01_requests_echo_bot
+# MyTelegramBot
 
-🚀 **Echo bot – Python va Requests yordamida Telegram API bilan ishlovchi oddiy bot**  
+`MyTelegramBot` — bu Telegram botlarini yaratish uchun mo‘ljallangan Python kutubxonasi. Kutubxona Telegram API bilan ishlashni osonlashtiradi va botni yaratish, xabar yuborish va yangilanishlarni olish funksiyalarini taqdim etadi.
 
-## 📌 Loyiha tavsifi  
-Ushbu loyiha **Python, Requests va Telegram API** yordamida ishlaydigan eng oddiy **Echo Bot** hisoblanadi.  
-Bot foydalanuvchidan kelgan har qanday xabarni qaytarib yuboradi.  
+## Xususiyatlar
+- Telegram API bilan integratsiya
+- Xabar yuborish va qabul qilish
+- Emoji bilan tasmalar (dice) yuborish
+- Yangilanishlarni (`updates`) olish uchun timeout qo‘llab-quvvatlanadi
+- Pythonic obyektlarga asoslangan arxitektura
 
-## ⚡ Texnologiyalar  
-- Python 🐍  
-- Requests 📡  
-- python-dotenv
-- Telegram API 🤖  
+## O‘rnatish
 
-## 📥 O‘rnatish va sozlash  
+Loyihangizga `MyTelegramBot` kutubxonasini qo‘shish uchun quyidagi amallarni bajaring:
 
-1. **Virtual muhit yaratish va faollashtirish:**  
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # macOS/Linux
-   venv\Scripts\activate     # Windows
-   ```
-
-2. **Kerakli kutubxonalarni o‘rnatish:**  
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **`.env` faylini yaratish va bot tokenini kiritish:**  
-   `.env` fayl ichida quyidagi qatordan iborat bo‘lishi kerak:  
-   ```ini
-   BOT_TOKEN="YOUR_TELEGRAM_BOT_TOKEN"
-   ```
-
-4. **Botni ishga tushirish:**  
-   ```bash
-   python bot.py
-   ```
-
-## 🎯 Foydalanish  
-- Botga **start** bering: `/start`
-- Istalgan matnni yuboring, bot uni **aynan shunday** qaytaradi.
-
-## 🛠 Tuzilishi  
-```
-01_requests_echo_bot/
-│── bot.py                # Asosiy bot kodi
-│── .env                  # Bot tokeni (maxfiy ma'lumot)
-│── requirements.txt       # Kutubxonalar ro‘yxati
-│── README.md              # Loyihaning tavsifi
+```bash
+pip install requests  # Agar requests kutubxonasi o‘rnatilmagan bo‘lsa
 ```
 
-## 📚 Qo‘shimcha manbalar  
-- [Telegram API rasmiy hujjatlar](https://core.telegram.org/bots/api)  
-- [Python Requests kutubxonasi](https://docs.python-requests.org/en/latest/)  
+Keyin, kutubxonani loyihangizga import qiling:
 
-## 📩 Muallif  
-**ZiyoCamp** jamoasi tomonidan tayyorlangan 🚀  
-Agar savollaringiz bo‘lsa, biz bilan bog‘laning:  
-📧 **Email:** support@ziyocamp.uz  
-📢 **Telegram:** [@ziyocamp_networking](https://t.me/ziyocamp_networking)  
+```python
+import config
+from mytelegrambot.bot import Bot
+
+bot = Bot(config.TOKEN)
+
+if __name__ == '__main__':
+    bot.run()
+```
+
+## Foydalanish
+
+### Bot obyektini yaratish
+```python
+from mytelegrambot.bot import Bot
+
+bot = Bot("YOUR_TELEGRAM_BOT_TOKEN")
+```
+
+### Yangilanishlarni olish
+```python
+updates = bot.get_updates()
+for update in updates:
+    print(update.message.text)
+```
+
+### Xabar yuborish
+```python
+bot.send_message(chat_id=123456789, text="Salom, dunyo!")
+```
+
+### Emoji bilan tasmalar yuborish
+```python
+bot.send_dice(chat_id=123456789, emoji="🎲")
+```
+
+## Tuzilma
+
+Kutubxona quyidagi asosiy modullardan iborat:
+
+- `bot.py` — Bot bilan ishlash uchun asosiy funksiya va metodlar
+- `types.py` — Telegram API javoblarini obyektlar sifatida ishlashga yordam beradigan klasslar
