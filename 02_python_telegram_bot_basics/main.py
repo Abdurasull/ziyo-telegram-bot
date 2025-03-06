@@ -6,7 +6,10 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, Callb
 
 # Enable logging
 logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO,
+    handlers=[
+        logging.FileHandler("log.txt")
+    ]
 )
 
 logger = logging.getLogger(__name__)
@@ -86,6 +89,7 @@ def echo_photo(update: Update, context: CallbackContext) -> None:
 
 def get_contact(update: Update, context: CallbackContext) -> None:
     print(update.message.contact)
+    logger.info(update.message.contact)
 
 def get_location(update: Update, context: CallbackContext) -> None:
     print(update.message.location)
